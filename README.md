@@ -64,10 +64,11 @@ should print: `truecolor`
 ### Quick setup script
 
 Both platforms have a setup script that handles the pip installs:
+However, in Linux to avoid PEP-668 (externally managed environment), you are advised to run script in a virtual environment
 
 ```bash
 # Linux / macOS
-bash setup.sh
+bash setup.sh 
 
 # Windows
 setup.bat
