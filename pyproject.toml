@@ -1,0 +1,24 @@
+[build-system]
+requires      = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name            = "ascii_play"
+version         = "0.1.0"
+description     = "Live terminal video player with true 24-bit color rendering"
+readme          = "README.md"
+license         = { text = "MIT" }
+requires-python = ">=3.9"
+
+dependencies = [
+    "numpy>=1.24",
+    "imageio>=2.31",
+    "imageio-ffmpeg>=0.4.9",
+]
+
+[project.scripts]
+ascii_play = "ascii_play.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["ascii_play*"]
