@@ -11,7 +11,7 @@ elif pip install numpy imageio imageio-ffmpeg --break-system-packages 2>/dev/nul
     echo "  done (--break-system-packages)."
 else
     echo ""
-    echo "pip install failed. If you're using conda/venv, activate it first:"
+    echo "pip install failed. Activate your conda/venv first:"
     echo "  conda activate <env>  or  source venv/bin/activate"
     echo "Then re-run: bash setup.sh"
     exit 1
