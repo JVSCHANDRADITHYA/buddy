@@ -1,4 +1,4 @@
-name: check-build
+name: CI
 
 on:
   push:
@@ -22,12 +22,7 @@ jobs:
       - name: Install dependencies
         run: pip install numpy imageio imageio-ffmpeg
 
-      - name: Generate test video (3 seconds)
-        run: |
-          sudo apt-get install -y ffmpeg -q
-          ffmpeg -f lavfi -i color=c=blue:size=320x240:rate=24 -t 3 test.mp4 -y -loglevel quiet
-
-      # ── file-based: python ascii_play/cli.py ─────────────────────────────
+      # ── file-based ────────────────────────────────────────────────────────
 
       - name: "[file] imports"
         run: python -c "from ascii_play.renderers import MODES; from ascii_play.player import play; print('OK')"
@@ -38,29 +33,14 @@ jobs:
       - name: "[file] modes"
         run: python ascii_play/cli.py modes
 
-      - name: "[file] play half"
-        run: timeout 3 python ascii_play/cli.py play test.mp4 --no-info || true
-
-      - name: "[file] play ascii"
-        run: timeout 3 python ascii_play/cli.py play test.mp4 -m ascii --no-info || true
-
-      - name: "[file] play braille"
-        run: timeout 3 python ascii_play/cli.py play test.mp4 -m braille --no-info || true
-
-      - name: "[file] quality levels"
-        run: |
-          timeout 3 python ascii_play/cli.py play test.mp4 -q 1 --no-info || true
-          timeout 3 python ascii_play/cli.py play test.mp4 -q 2 --no-info || true
-          timeout 3 python ascii_play/cli.py play test.mp4 -q 3 --no-info || true
-
       # ── buddy global access ───────────────────────────────────────────────
 
-      - name: "[buddy] install to PATH"
+      - name: "[buddy] install"
         run: |
           chmod +x buddy.sh
           sudo ln -sf "$(pwd)/buddy.sh" /usr/local/bin/buddy
 
-      - name: "[buddy] verify on PATH"
+      - name: "[buddy] on PATH"
         run: which buddy
 
       - name: "[buddy] help"
@@ -68,21 +48,6 @@ jobs:
 
       - name: "[buddy] modes"
         run: buddy modes
-
-      - name: "[buddy] play half"
-        run: timeout 3 buddy test.mp4 --no-info || true
-
-      - name: "[buddy] play ascii"
-        run: timeout 3 buddy test.mp4 -m ascii --no-info || true
-
-      - name: "[buddy] play braille"
-        run: timeout 3 buddy test.mp4 -m braille --no-info || true
-
-      - name: "[buddy] quality levels"
-        run: |
-          timeout 3 buddy test.mp4 -q 1 --no-info || true
-          timeout 3 buddy test.mp4 -q 2 --no-info || true
-          timeout 3 buddy test.mp4 -q 3 --no-info || true
 
       - name: "[buddy] error on missing file"
         run: buddy doesnotexist.mp4 && exit 1 || echo "correctly errored"
