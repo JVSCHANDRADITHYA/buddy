@@ -1,11 +1,12 @@
 """
 ascii_play.resize
-~~~~~~~~~~~~~~~~~
+
+
 Frame downscaling with three quality levels.
 
   quality=1  nearest-neighbor  — fastest, aliased
   quality=2  4-tap supersample — smooth, near-zero extra cost (default)
-  quality=3  full box filter   — true area average, best quality
+  quality=3  full box filter   — true area average, best quality [depends but slows down. not feasible on loswer-end hardware or high fps vids ]
 """
 
 import numpy as np
