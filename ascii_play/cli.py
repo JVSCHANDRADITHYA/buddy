@@ -8,7 +8,6 @@ Entry point. Run directly:
     python cli.py play video.mp4 -m braille -q 3
     python cli.py modes
     python cli.py help
-    python cli.py video.mp4 --no-info --no-audio
 
 Or via wrapper scripts:
     buddy video.mp4
@@ -17,6 +16,11 @@ Or via wrapper scripts:
 import sys
 import os
 import argparse
+
+# force UTF-8 output on Windows (cp1252 can't handle ▀ ⣿ etc)
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 # make package importable when running cli.py directly from repo root
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -52,7 +56,7 @@ HELP = r"""
  | |_) | |_| | (_| | (_| | |_| |
  |_.__/ \__,_|\__,_|\__,_|\__, |
                            |___/
- live terminal video player  v0.1.2
+ live terminal video player  v0.1.0
 
 USAGE
   buddy <video>                     Play a video (smart default)
@@ -86,9 +90,6 @@ EXAMPLES
   buddy video.mp4 -m half -q 3 --loop
   buddy video.mp4 -s 0.8 --no-info
   buddy play video.mp4 -m ascii -q 2 -s 0.9
-
-NEW : AUDIO SUPPORT ADDED! (version 0.1.2)
-  Audio is now supported in all render modes. Use --no-audio to disable.
 
 TERMINAL REQUIREMENTS
   Needs 24-bit true color support.
