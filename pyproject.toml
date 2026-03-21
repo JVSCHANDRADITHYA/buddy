@@ -1,6 +1,6 @@
 [build-system]
 requires      = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name            = "ascii_play"
@@ -16,9 +16,15 @@ dependencies = [
     "imageio-ffmpeg>=0.4.9",
 ]
 
+[project.optional-dependencies]
+audio = [
+    "sounddevice>=0.4.6",
+    "soundfile>=0.12.1",
+]
+
 [project.scripts]
 ascii_play = "ascii_play.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["ascii_play*"]
+include = ["ascii_play*"] 
