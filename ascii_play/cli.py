@@ -8,6 +8,7 @@ Entry point. Run directly:
     python cli.py play video.mp4 -m braille -q 3
     python cli.py modes
     python cli.py help
+    python cli.py video.mp4 --no-info --no-audio
 
 Or via wrapper scripts:
     buddy video.mp4
