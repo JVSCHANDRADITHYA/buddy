@@ -45,7 +45,7 @@ def render_half(frame: np.ndarray, cols: int, rows: int,
     bg = _bg(fb[:,0], fb[:,1], fb[:,2]).reshape(rows, cols)
 
     cells = np.char.add(np.char.add(fg.astype(str), bg.astype(str)), UPPER_HALF)
-    return move_home() + "\n".join("".join(row) for row in cells) + reset()
+    return move_home() + "\r\n".join("".join(row) for row in cells) + reset()
 
 
 # ── ASCII density 
@@ -71,7 +71,7 @@ def render_ascii(frame: np.ndarray, cols: int, rows: int,
     fg   = _fg(flat[:,0], flat[:,1], flat[:,2]).reshape(rows, cols)
 
     cells = np.char.add(fg.astype(str), char_grid.astype(str))
-    return move_home() + "\n".join("".join(row) for row in cells) + reset()
+    return move_home() + "\r\n".join("".join(row) for row in cells) + reset()
 
 
 # ── Braille ───────────────────────────────────────────────────────────────────
@@ -118,7 +118,7 @@ def render_braille(frame: np.ndarray, cols: int, rows: int,
     fg     = _fg(flat[:,0], flat[:,1], flat[:,2]).reshape(rows, cols)
 
     cells = np.char.add(fg.astype(str), char_grid.astype(str))
-    return move_home() + "\n".join("".join(row) for row in cells) + reset()
+    return move_home() + "\r\n".join("".join(row) for row in cells) + reset()
 
 
 # ── Registry ──────────────────────────────────────────────────────────────────
